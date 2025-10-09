@@ -1,0 +1,291 @@
+### Health Check
+GET http://localhost:4000/health
+
+###############################################
+### ESTADÍSTICAS Y AGREGACIONES
+###############################################
+
+### 1. Resumen General (incluye distribución por nivel)
+GET http://localhost:4000/api/stats/resumen-general
+
+### 2. 🆕 Canciones por Nivel
+GET http://localhost:4000/api/stats/canciones-por-nivel
+
+### 3. Canciones por Voz
+GET http://localhost:4000/api/stats/canciones-por-voz
+
+### 4. Distribución de Instrumentos
+GET http://localhost:4000/api/stats/distribucion-instrumentos
+
+### 5. Cobertura de Voces (ahora incluye nivel)
+GET http://localhost:4000/api/stats/cobertura-voces
+
+### 6. Materiales por Tipo
+GET http://localhost:4000/api/stats/materiales-por-tipo
+
+### 7. Participaciones de Miembros
+GET http://localhost:4000/api/stats/participaciones-miembros
+
+### 8. Canciones Más Completas (ahora incluye nivel)
+GET http://localhost:4000/api/stats/canciones-mas-completas
+
+### 9. Análisis de Etiquetas
+GET http://localhost:4000/api/stats/analisis-etiquetas
+
+###############################################
+### CANCIONES - BÚSQUEDAS BÁSICAS
+###############################################
+
+### Listar todas las canciones
+GET http://localhost:4000/api/canciones
+
+### 🆕 Filtrar por nivel FÁCIL
+GET http://localhost:4000/api/canciones?nivel=facil
+
+### 🆕 Filtrar por nivel MEDIO
+GET http://localhost:4000/api/canciones?nivel=medio
+
+### 🆕 Filtrar por nivel DIFÍCIL
+GET http://localhost:4000/api/canciones?nivel=dificil
+
+### Buscar por texto
+GET http://localhost:4000/api/canciones?buscar=Amor
+
+### Buscar por etiqueta
+GET http://localhost:4000/api/canciones?etiqueta=romantica
+
+### 🆕 Combinar nivel + etiqueta
+GET http://localhost:4000/api/canciones?nivel=facil&etiqueta=practica
+
+###############################################
+### CANCIONES - BÚSQUEDAS POR CRITERIO
+###############################################
+
+### 🆕 Canciones FÁCILES por endpoint específico
+GET http://localhost:4000/api/canciones/por-nivel/facil
+
+### 🆕 Canciones DIFÍCILES por endpoint específico
+GET http://localhost:4000/api/canciones/por-nivel/dificil
+
+### Canciones con voz AGUDA
+GET http://localhost:4000/api/canciones/por-voz/aguda
+
+### Canciones con voz MEDIA_AGUDA
+GET http://localhost:4000/api/canciones/por-voz/media_aguda
+
+### Canciones con guitarra base
+GET http://localhost:4000/api/canciones/por-instrumento/guitarra_base
+
+### Canciones con guitarra requinto
+GET http://localhost:4000/api/canciones/por-instrumento/guitarra_requinto
+
+###############################################
+### BÚSQUEDA AVANZADA MULTI-CRITERIO
+###############################################
+
+### 🆕 Solo nivel fácil
+GET http://localhost:4000/api/canciones/buscar-avanzado?nivel=facil
+
+### 🆕 Nivel fácil + voz aguda
+GET http://localhost:4000/api/canciones/buscar-avanzado?nivel=facil&voz=aguda
+
+### 🆕 Nivel medio + guitarra base
+GET http://localhost:4000/api/canciones/buscar-avanzado?nivel=medio&instrumento=guitarra_base
+
+### 🆕 Nivel difícil + voz aguda + guitarra requinto
+GET http://localhost:4000/api/canciones/buscar-avanzado?nivel=dificil&voz=aguda&instrumento=guitarra_requinto
+
+### 🆕 Nivel fácil + texto "amor"
+GET http://localhost:4000/api/canciones/buscar-avanzado?nivel=facil&texto=amor
+
+### 🆕 TODAS las combinaciones - nivel + voz + instrumento + texto + etiqueta
+GET http://localhost:4000/api/canciones/buscar-avanzado?nivel=medio&voz=aguda&instrumento=guitarra_base&texto=amor&etiqueta=romantica
+
+### Buscar voz + instrumento (sin nivel)
+GET http://localhost:4000/api/canciones/buscar-avanzado?voz=media_aguda&instrumento=guitarra_requinto
+
+### Buscar texto + etiqueta (sin nivel)
+GET http://localhost:4000/api/canciones/buscar-avanzado?texto=noche&etiqueta=bolero
+
+### Error: sin criterios (para probar validación)
+GET http://localhost:4000/api/canciones/buscar-avanzado
+
+###############################################
+### MIEMBROS
+###############################################
+
+### Listar todos los miembros
+GET http://localhost:4000/api/miembros
+
+### Buscar miembros activos
+GET http://localhost:4000/api/miembros?activo=true
+
+### Buscar por texto
+GET http://localhost:4000/api/miembros?buscar=Jorge
+
+### Miembros - Paginación
+GET http://localhost:4000/api/miembros?page=1&limit=2
+
+###############################################
+### MATERIALES
+###############################################
+
+### Listar todos los materiales
+GET http://localhost:4000/api/materiales
+
+### Materiales tipo guitarra_base
+GET http://localhost:4000/api/materiales/por-tipo/guitarra_base
+
+### Materiales tipo voz
+GET http://localhost:4000/api/materiales/por-tipo/voz
+
+### Materiales por voz MEDIA_AGUDA
+GET http://localhost:4000/api/materiales/por-voz/media_aguda
+
+### Materiales - Paginación
+GET http://localhost:4000/api/materiales?page=1&limit=5
+
+###############################################
+### CRUD - CREAR CANCIÓN CON NIVEL
+###############################################
+
+### 🆕 Crear canción FÁCIL
+POST http://localhost:4000/api/canciones
+Content-Type: application/json
+
+{
+  "titulo": "Canción de Prueba Fácil",
+  "tonalidad": "Do mayor",
+  "nivel": "facil",
+  "etiquetas": ["test", "practica"],
+  "voces": [
+    {
+      "rango": "media",
+      "parte": "Completa",
+      "url": "https://test.com/prueba.mp3",
+      "origen": "local",
+      "duracionSeg": 120
+    }
+  ],
+  "instrumentales": [
+    {
+      "instrumento": "guitarra_base",
+      "parte": "Completa",
+      "url": "https://test.com/guitarra.mp3",
+      "origen": "local",
+      "duracionSeg": 120
+    }
+  ],
+  "notas": "Canción de prueba para nivel fácil"
+}
+
+### 🆕 Crear canción DIFÍCIL
+POST http://localhost:4000/api/canciones
+Content-Type: application/json
+
+{
+  "titulo": "Canción de Prueba Difícil",
+  "tonalidad": "Mi menor",
+  "nivel": "dificil",
+  "etiquetas": ["test", "tecnica"],
+  "voces": [
+    {
+      "rango": "aguda",
+      "parte": "Completa",
+      "url": "https://test.com/aguda.mp3",
+      "origen": "local"
+    },
+    {
+      "rango": "grave",
+      "parte": "Completa",
+      "url": "https://test.com/grave.mp3",
+      "origen": "local"
+    }
+  ],
+  "instrumentales": [
+    {
+      "instrumento": "guitarra_base",
+      "parte": "Completa",
+      "url": "https://test.com/base.mp3",
+      "origen": "local"
+    },
+    {
+      "instrumento": "guitarra_requinto",
+      "parte": "Completa",
+      "url": "https://test.com/requinto.mp3",
+      "origen": "local"
+    }
+  ],
+  "notas": "Canción de prueba para nivel difícil con múltiples voces"
+}
+
+###############################################
+### CRUD - ACTUALIZAR NIVEL
+###############################################
+
+### 🆕 Actualizar nivel de una canción (cambia el ID)
+PUT http://localhost:4000/api/canciones/AQUI_EL_ID
+Content-Type: application/json
+
+{
+  "nivel": "medio",
+  "etiquetas": ["actualizado", "practica"]
+}
+
+###############################################
+### CASOS DE PRUEBA - VALIDACIONES
+###############################################
+
+### ❌ Error: nivel inválido en query
+GET http://localhost:4000/api/canciones?nivel=imposible
+
+### ❌ Error: nivel inválido en búsqueda avanzada
+GET http://localhost:4000/api/canciones/buscar-avanzado?nivel=super_dificil
+
+### ❌ Error: nivel inválido en endpoint específico
+GET http://localhost:4000/api/canciones/por-nivel/ultra_facil
+
+### ❌ Error: crear canción con nivel inválido
+POST http://localhost:4000/api/canciones
+Content-Type: application/json
+
+{
+  "titulo": "Canción Inválida",
+  "nivel": "nivel_no_existe",
+  "voces": []
+}
+
+###############################################
+### ESCENARIOS REALES
+###############################################
+
+### 🎯 Caso 1: Buscar canciones fáciles para principiantes
+GET http://localhost:4000/api/canciones/por-nivel/facil
+
+### 🎯 Caso 2: Canciones fáciles con voz MEDIA (ideal para empezar)
+GET http://localhost:4000/api/canciones/buscar-avanzado?nivel=facil&voz=media
+
+### 🎯 Caso 3: Canciones difíciles con guitarra requinto (avanzados)
+GET http://localhost:4000/api/canciones/buscar-avanzado?nivel=dificil&instrumento=guitarra_requinto
+
+### 🎯 Caso 4: Canciones medias románticas
+GET http://localhost:4000/api/canciones/buscar-avanzado?nivel=medio&etiqueta=romantica
+
+### 🎯 Caso 5: Distribución completa del repertorio por nivel
+GET http://localhost:4000/api/stats/canciones-por-nivel
+
+###############################################
+### PAGINACIÓN AVANZADA
+###############################################
+
+### Canciones fáciles - página 1
+GET http://localhost:4000/api/canciones?nivel=facil&page=1&limit=5
+
+### Canciones fáciles - página 2
+GET http://localhost:4000/api/canciones?nivel=facil&page=2&limit=5
+
+### Canciones medias - todas
+GET http://localhost:4000/api/canciones?nivel=medio
+
+### Canciones difíciles con paginación
+GET http://localhost:4000/api/canciones?nivel=dificil&page=1&limit=3

@@ -1,0 +1,156 @@
+### Health Check
+GET http://localhost:4000/health
+
+###############################################
+### MIEMBROS
+###############################################
+
+### 1. Listar todos los miembros
+GET http://localhost:4000/api/miembros
+
+### 2. Buscar miembros activos
+GET http://localhost:4000/api/miembros?activo=true
+
+### 3. Buscar por texto
+GET http://localhost:4000/api/miembros?buscar=Jorge
+
+### 4. Obtener un miembro específico (cambia el ID)
+GET http://localhost:4000/api/miembros/AQUI_EL_ID
+
+### 5. Crear nuevo miembro
+POST http://localhost:4000/api/miembros
+Content-Type: application/json
+
+{
+  "nombre": "Ana García",
+  "roles": ["segunda_aguda"],
+  "instrumentos": ["guitarra_base"],
+  "activo": true
+}
+
+### 6. Actualizar miembro (cambia el ID)
+PUT http://localhost:4000/api/miembros/AQUI_EL_ID
+Content-Type: application/json
+
+{
+  "activo": false,
+  "roles": ["media_aguda", "aguda"]
+}
+
+### 7. Eliminar miembro (cambia el ID)
+DELETE http://localhost:4000/api/miembros/AQUI_EL_ID
+
+###############################################
+### CANCIONES
+###############################################
+
+### 8. Listar todas las canciones
+GET http://localhost:4000/api/canciones
+
+### 9. Buscar por texto en título
+GET http://localhost:4000/api/canciones?buscar=Morirá
+
+### 10. Filtrar por etiqueta
+GET http://localhost:4000/api/canciones?etiqueta=ensayo
+
+### 11. Canciones con voz MEDIA_AGUDA
+GET http://localhost:4000/api/canciones/por-voz/media_aguda
+
+### 12. Canciones con guitarra base
+GET http://localhost:4000/api/canciones/por-instrumento/guitarra_base
+
+### 13. Canciones con participación de un miembro (cambia el ID)
+GET http://localhost:4000/api/canciones/con-miembro/AQUI_ID_MIEMBRO
+
+### 14. Obtener canción específica (cambia el ID)
+GET http://localhost:4000/api/canciones/AQUI_EL_ID
+
+### 15. Crear nueva canción
+POST http://localhost:4000/api/canciones
+Content-Type: application/json
+
+{
+  "titulo": "Bésame Mucho",
+  "tonalidad": "Do mayor",
+  "etiquetas": ["romántico", "clásico"],
+  "voces": [
+    {
+      "rango": "aguda",
+      "parte": "Primera voz",
+      "url": "https://t.me/canal/besame_aguda.mp3",
+      "origen": "telegram",
+      "duracionSeg": 200
+    }
+  ],
+  "instrumentales": [
+    {
+      "instrumento": "guitarra_base",
+      "parte": "Acompañamiento",
+      "url": "https://t.me/canal/besame_base.mp3",
+      "origen": "telegram",
+      "duracionSeg": 200
+    }
+  ],
+  "notas": "Arreglo tradicional"
+}
+
+### 16. Actualizar canción (cambia el ID)
+PUT http://localhost:4000/api/canciones/AQUI_EL_ID
+Content-Type: application/json
+
+{
+  "tonalidad": "Re mayor",
+  "etiquetas": ["romántico", "clásico", "presentación"]
+}
+
+### 17. Eliminar canción (cambia el ID)
+DELETE http://localhost:4000/api/canciones/AQUI_EL_ID
+
+###############################################
+### MATERIALES
+###############################################
+
+### 18. Listar todos los materiales
+GET http://localhost:4000/api/materiales
+
+### 19. Buscar por texto
+GET http://localhost:4000/api/materiales?buscar=Primera
+
+### 20. Filtrar por tipo
+GET http://localhost:4000/api/materiales?tipo=voz
+
+### 21. Materiales tipo guitarra_base
+GET http://localhost:4000/api/materiales/por-tipo/guitarra_base
+
+### 22. Materiales de una canción específica (cambia el ID)
+GET http://localhost:4000/api/materiales/por-cancion/AQUI_ID_CANCION
+
+### 23. Materiales de voz MEDIA_AGUDA
+GET http://localhost:4000/api/materiales/por-voz/media_aguda
+
+### 24. Obtener material específico (cambia el ID)
+GET http://localhost:4000/api/materiales/AQUI_EL_ID
+
+### 25. Crear nuevo material
+POST http://localhost:4000/api/materiales
+Content-Type: application/json
+
+{
+  "titulo": "Tutorial de rasgueo básico",
+  "tipo": "teoria",
+  "parte": "Introducción",
+  "url": "https://t.me/canal/tutorial_rasgueo.mp3",
+  "origen": "telegram",
+  "etiquetas": ["principiante", "técnica"]
+}
+
+### 26. Actualizar material (cambia el ID)
+PUT http://localhost:4000/api/materiales/AQUI_EL_ID
+Content-Type: application/json
+
+{
+  "etiquetas": ["principiante", "técnica", "práctica"]
+}
+
+### 27. Eliminar material (cambia el ID)
+DELETE http://localhost:4000/api/materiales/AQUI_EL_ID

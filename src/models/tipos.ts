@@ -6,3 +6,7 @@ export type TipoInstrumental = typeof INSTRUMENTALES[number];
 
 export const ORIGENES = ["telegram","local","otro"] as const;
 export type Origen = typeof ORIGENES[number];
+
+// 🆕 NUEVO: Niveles de dificultad
+export const NIVELES = ["facil","medio","dificil"] as const;
+export type Nivel = typeof NIVELES[number];
